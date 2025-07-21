@@ -73,7 +73,7 @@ int matrixMultiply(int argc, char **argv, int block_size, dim3 dimsA, dim3 dimsB
         exit(EXIT_FAILURE);
     }
 
-    printf("Copying input data from the host memory to the CUDA device\n");
+    printf("Copying input data\n");
     memcpy(d_A, h_A, mem_size_A);
     memcpy(d_B, h_B, mem_size_B);
 
@@ -84,7 +84,7 @@ int matrixMultiply(int argc, char **argv, int block_size, dim3 dimsA, dim3 dimsB
     grid.x = dimsB.x / threads.x;
     grid.y = dimsA.y / threads.y;
 
-    printf("Computing result using CUDA Kernel...\n");
+    printf("Computing result using CPU...\n");
 
     printf("done\n");
 
@@ -98,7 +98,7 @@ int matrixMultiply(int argc, char **argv, int block_size, dim3 dimsA, dim3 dimsB
 
     clock_t stop = clock();
 
-    printf("Copying output data from the CUDA device to the host memory\n");
+    printf("Copying output data\n");
     memcpy(h_C, d_C, mem_size_C);
 
     double msecPerMatrixMul = ((double)(stop - start) / CLOCKS_PER_SEC) * 1000.0 / nIter;
@@ -148,7 +148,7 @@ int matrixMultiply(int argc, char **argv, int block_size, dim3 dimsA, dim3 dimsB
 
 int main(int argc, char **argv)
 {
-    printf("[Matrix Multiply Using CUDA] - Starting...\n");
+    printf("[Matrix Multiply Using CPU] - Starting...\n");
 
     int block_size = 32;
     dim3 dimsA, dimsB;
